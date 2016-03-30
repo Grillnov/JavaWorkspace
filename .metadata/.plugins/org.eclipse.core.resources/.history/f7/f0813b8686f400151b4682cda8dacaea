@@ -1,0 +1,119 @@
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.Image;
+
+import java.util.ArrayList;
+
+class AssetController
+{
+	public ImageIcon Husky;
+	public Image Doge;
+	public ImageIcon RoadBlock;
+	public ImageIcon DefaultBackground;
+	
+	AssetController()
+	{
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		this.Doge = tk.createImage("./Doge.gif");
+		this.Husky = new ImageIcon("./Husky.png");
+		this.RoadBlock = new ImageIcon("./RoadBlock.png");
+		this.DefaultBackground = new ImageIcon("./Default.png");
+	}
+}
+
+class GridBlock extends JButton
+{
+	private int coordX;//Coordinate of the grid
+	private int coordY;
+	private int status;//Is it now a husky, a roadblock, or simple background?
+	
+	GridBlock(int coordX, int coordY)
+	{
+		this.coordX = coordX;
+		this.coordY = coordY;
+		this.status = 0;
+		GridBlock.icons = new AssetController();
+		updateStatus(this.status);
+	}
+	int getCoordX()
+	{
+		return this.coordX;
+	}
+	int getCoordY()
+	{
+		return this.coordY;
+	}
+	int getStatus()
+	{
+		return this.status;
+	}
+	void updateStatus(int newStatus)
+	{
+		switch(newStatus)
+		{
+		case 0:
+			this.setIcon(icons.Husky);
+			break;
+		case 1:
+			this.setIcon(icons.RoadBlock);
+			break;
+		case 2:
+			this.setIcon(icons.DefaultBackground);
+			break;
+		}
+	}
+}
+
+public class GUIMainbody
+{
+	private JFrame Mainbody;
+	private GridLayout ChessGrid;
+	private Image DogeIcon;
+	private ArrayList<GridBlock> Blocks;
+	public static AssetController icons;
+	private int GridSize;
+	
+	private void InitializeWindow()
+	{
+		Mainbody.setVisible(true);
+		Mainbody.setSize(800, 800);
+		Mainbody.setLocationRelativeTo(null);
+		Mainbody.setIconImage(DogeIcon);
+		
+		Mainbody.setResizable(false);
+		Mainbody.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	private void InitializeGrid()
+	{
+		ChessGrid = new GridLayout(GridSize, GridSize, 0, 0);
+		Mainbody.setLayout(ChessGrid);
+		for(int i = 0; i!=ChessGrid.getColumns(); ++i)
+		{
+			for(int j = 0; j!=ChessGrid.getRows(); ++j)
+			{
+				Blocks.add(new GridBlock(i, j));
+			}
+		}
+		for(GridBlock i : Blocks)
+			Mainbody.add(i);
+	}
+	
+	public GUIMainbody(String Title)
+	{
+		this.Mainbody = new JFrame(Title);
+		this.GridSize = 20;
+		this.Blocks = new ArrayList<GridBlock>();
+		InitializeGrid();
+		InitializeWindow();
+	}
+	
+	public static void main(String[] Args)
+	{
+		GUIMainbody mainBody = new GUIMainbody("Chase down the Husky");
+	}
+}
