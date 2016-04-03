@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring accessors="true" comment="Delete 8 elements from project &apos;GUIGame&apos;&#x0D;&#x0A;- Original project: &apos;GUIGame&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     Default.png&#x0D;&#x0A;     Doge.gif&#x0D;&#x0A;     DogeFail.png&#x0D;&#x0A;     DogeVictory.png&#x0D;&#x0A;     Husky.png&#x0D;&#x0A;     HuskyLarge.png&#x0D;&#x0A;     README.md&#x0D;&#x0A;     RoadBlock.png" description="Delete elements" element1="DogeFail.png" element2="DogeVictory.png" element3="Default.png" element4="RoadBlock.png" element5="README.md" element6="Husky.png" element7="Doge.gif" element8="HuskyLarge.png" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="8" stamp="1459661489352" subPackages="false" version="1.0"/>
-</session>
