@@ -47,5 +47,5 @@ Temporary Items
 .apdisk
 
 #Customized
-./.metadata
-./.recommenders
+./.metadata/*.*
+./.recommenders/*.*
