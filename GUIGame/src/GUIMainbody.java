@@ -274,7 +274,7 @@ public class GUIMainbody
 	public void InitializeRoadBlockPosition()//randomly generate roadblocks
 	{
 		Random randomCoord = new Random();
-		for(int i = 0; i!= 5; ++i)
+		for(int i = 0; i!= 5; ++i)//FIXME: magic number 5's present, how should I proceed
 		{
 			int x = randomCoord.nextInt(GridSize);
 			int y = randomCoord.nextInt(GridSize);
