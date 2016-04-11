@@ -1,5 +1,7 @@
 import java.lang.Integer;
 import java.lang.reflect.Array;
+import java.util.Stack;
+import java.util.ArrayList;
 import java.lang.Class;
 
 class LinkedListNode<Type>
@@ -22,8 +24,7 @@ class LinkedListNode<Type>
 	}
 }
 
-
-public class MyListSorted<Type extends Object & Comparable<Type>> implements ICollection<Type>//
+public class MyListSorted<Type extends Comparable<Type>> implements ICollection<Type>//
 {
 	private Integer size;
 	private LinkedListNode<Type> head;
@@ -46,7 +47,7 @@ public class MyListSorted<Type extends Object & Comparable<Type>> implements ICo
 		
 		++this.size;
 		LinkedListNode<Type> potential;
-		if(element.compareTo(head.val) == -1)//new head establish required!
+		if(element.compareTo(head.val) < 0)//new head establish required!
 		{
 			potential = new LinkedListNode<Type>(element);
 			this.head.prev = potential;
@@ -56,7 +57,7 @@ public class MyListSorted<Type extends Object & Comparable<Type>> implements ICo
 		else
 		{
 			potential = this.head;
-			while(potential.next != null && potential.next.val.compareTo(element) == -1)
+			while(potential.next != null && potential.next.val.compareTo(element) < 0)
 				potential = potential.next;
 			LinkedListNode<Type> newNode = new LinkedListNode<Type>(element);
 			newNode.prev = potential;
@@ -125,21 +126,38 @@ public class MyListSorted<Type extends Object & Comparable<Type>> implements ICo
 	}
 
 	@Override
-	public Type[] toArray(Class<Type> type) 
+	public Object[] toArray() 
 	{
-		Type[] returnVal = (Type[]) Array.newInstance(type, this.size);
+		ArrayList<Type> container = new ArrayList<Type>();
 		LinkedListNode<Type> iterator = this.head;
 		for(int i = 0; i != this.size; ++i)
 		{
-			returnVal[i] = iterator.val;
+			container.add(iterator.val);
 			iterator = iterator.next;
 		}
-		return returnVal;
+		return container.toArray();
 	}
 
 	@Override
 	public Boolean isEmpty() 
 	{
 		return (this.size == 0?true:false);
+	}
+	
+	@Override
+	public boolean equals(Object rhs)
+	{
+		if(this.size != ((MyListSorted<Type>)rhs).size)
+			return false;
+		LinkedListNode<Type> i1 = this.head;
+		LinkedListNode<Type> i2 = ((MyListSorted<Type>)rhs).head;
+		for(int i = 0; i != this.size; ++i)
+		{
+			if(i1.val.compareTo(i2.val) != 0)
+				return false;
+			i1 = i1.next;
+			i2 = i2.next;
+		}
+		return true;
 	}
 }

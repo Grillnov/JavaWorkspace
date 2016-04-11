@@ -7,6 +7,6 @@ public interface ICollection<Type>
 	public abstract Boolean contains(Type element);
 	public abstract Integer size();
 	public abstract void clear();
-	public abstract Type[] toArray(Class<Type> type);
+	public abstract Object[] toArray();
 	public abstract Boolean isEmpty();
 }

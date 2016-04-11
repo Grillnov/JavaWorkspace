@@ -1,11 +1,25 @@
 import java.util.Calendar;
+import java.util.Date;
 
 public class MyDate implements Comparable<MyDate>
 {
+	private static final String[] weekDays = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 	private Calendar timer;
 	MyDate()
 	{
 		this.timer = Calendar.getInstance();
+	}
+	MyDate(int year, int month, int day)
+	{
+		this.timer = Calendar.getInstance();
+		timer.set(Calendar.YEAR, year);
+		timer.set(Calendar.MONTH, month);
+		timer.set(Calendar.DAY_OF_MONTH, day);
+	}
+	MyDate(Date date)
+	{
+		this.timer = Calendar.getInstance();
+		timer.setTime(date);
 	}
 	public void plusDays(Integer amountofDays)
 	{
@@ -21,14 +35,13 @@ public class MyDate implements Comparable<MyDate>
 	}
 	public String getDayofWeek()
 	{
-		String[] weekDays = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 		Integer i = this.timer.get(Calendar.DAY_OF_WEEK) - 1;
 		return weekDays[i];
 	}
 	public String getDate()
 	{
 		Integer year =  this.timer.get(Calendar.YEAR);
-		Integer month = this.timer.get(Calendar.MONTH);
+		Integer month = this.timer.get(Calendar.MONTH) + 1;
 		Integer day = this.timer.get(Calendar.DAY_OF_MONTH);
 		return year.toString() + "-" + month.toString() + "-" + day.toString();
 	}
@@ -59,4 +72,19 @@ public class MyDate implements Comparable<MyDate>
 		else
 			return -1;
 	}
+	@Override
+	public int hashCode()
+	{
+		return 1000*this.timer.get(Calendar.YEAR) + timer.get(Calendar.DAY_OF_YEAR);//4 digits of year + 3 digits of dayofyear.
+	}
+	@Override
+	public boolean equals(Object rhs)
+	{
+        if (rhs == null)
+            throw new NullPointerException();
+        else if (rhs.getClass() == this.getClass())
+            return rhs.hashCode() == this.hashCode();
+        else
+            return false;
+    }
 }
